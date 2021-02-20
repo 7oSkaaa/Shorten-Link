@@ -20,3 +20,20 @@ According to Roberts, an edge detector should have the following properties: the
 The Sobel operator, sometimes called the Sobel–Feldman operator or Sobel filter, is used in image processing and computer vision, particularly within edge detection algorithms where it creates an image emphasising edges. It is named after Irwin Sobel and Gary Feldman, colleagues at the Stanford Artificial Intelligence Laboratory (SAIL). Sobel and Feldman presented the idea of an "Isotropic 3x3 Image Gradient Operator" at a talk at SAIL in 1968.Technically, it is a discrete differentiation operator, computing an approximation of the gradient of the image intensity function. At each point in the image, the result of the Sobel–Feldman operator is either the corresponding gradient vector or the norm of this vector. The Sobel–Feldman operator is based on convolving the image with a small, separable, and integer-valued filter in the horizontal and vertical directions and is therefore relatively inexpensive in terms of computations. On the other hand, the gradient approximation that it produces is relatively crude, in particular for high-frequency variations in the image.
 
 [Sobel Implementation](https://github.com/MeitanteiAshour/IPApps/blob/master/sobel_op.py)
+
+## Spatial filtering
+
+A spatial filter is an optical device which uses the principles of Fourier optics to alter the structure of a beam of light or other electromagnetic radiation, typically coherent laser light. Spatial filtering is commonly used to "clean up" the output of lasers, removing aberrations in the beam due to imperfect, dirty, or damaged optics, or due to variations in the laser gain medium itself. This filtering can be applied to transmit a pure transverse mode from a multimode laser while blocking other modes emitted from the optical resonator.The term "filtering" indicates that the desirable structural features of the original source pass through the filter, while the undesirable features are blocked. Apparatus which follows the filter effectively sees a higher-quality but lower-powered image of the source, instead of the actual source directly. An example of the use of spatial filter can be seen in advanced setup of micro-Raman spectroscopy.
+
+Examples : 
+
+## Median filtering
+
+The median filter is a non-linear digital filtering technique, often used to remove noise from an image or signal. Such noise reduction is a typical pre-processing step to improve the results of later processing (for example, edge detection on an image). Median filtering is very widely used in digital image processing because, under certain conditions, it preserves edges while removing noise (but see the discussion below), also having applications in signal processing.
+[Implementation of median filtering](https://github.com/MeitanteiAshour/IPApps/blob/master/median_filtering.py)
+
+## Average filtering
+
+Average (or mean) filtering is a method of 'smoothing' images by reducing the amount of intensity variation between neighbouring pixels. The average filter works by moving through the image pixel by pixel, replacing each value with the average value of neighbouring pixels, including itself
+
+[Implementation of Average filtering](https://github.com/MeitanteiAshour/IPApps/blob/master/average_filter.py)
