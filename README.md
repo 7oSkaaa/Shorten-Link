@@ -30,6 +30,7 @@ Examples :
 ## Median filtering
 
 The median filter is a non-linear digital filtering technique, often used to remove noise from an image or signal. Such noise reduction is a typical pre-processing step to improve the results of later processing (for example, edge detection on an image). Median filtering is very widely used in digital image processing because, under certain conditions, it preserves edges while removing noise (but see the discussion below), also having applications in signal processing.
+
 [Implementation of median filtering](https://github.com/MeitanteiAshour/IPApps/blob/master/median_filtering.py)
 
 ## Average filtering
@@ -37,3 +38,10 @@ The median filter is a non-linear digital filtering technique, often used to rem
 Average (or mean) filtering is a method of 'smoothing' images by reducing the amount of intensity variation between neighbouring pixels. The average filter works by moving through the image pixel by pixel, replacing each value with the average value of neighbouring pixels, including itself
 
 [Implementation of Average filtering](https://github.com/MeitanteiAshour/IPApps/blob/master/average_filter.py)
+
+## Contrast stretching
+
+Contrast stretching (often called normalization) is a simple image enhancement technique that attempts to improve the contrast in an image by 'stretching' the range of intensity values it contains to span a desired range of values, the full range of pixel values that the image type concerned allows.
+
+[Implementation of contrast stretching](https://github.com/MeitanteiAshour/IPApps/blob/master/contrast_streching.py)
+
