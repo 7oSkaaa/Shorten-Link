@@ -12,9 +12,8 @@ img = cv2.imread('Images/Bikesgray.jpg', 0)
 m, n = img.shape
 
 # Develop Averaging filter(3, 3) mask
-mask = np.ones([7, 7], dtype=int)
-mask = - mask / 9
-mask[4, 2] *= 8
+mask = np.full((3, 3), 2)
+mask = mask / 9
 
 # Convolve the 3X3 mask over the image
 img_new = np.zeros([m, n])
@@ -28,4 +27,4 @@ for i in range(1, m - 1):
         img_new[i, j] = temp
 
 img_new = img_new.astype(np.uint8)
-cv2.imwrite('EditedImages/high_pass_bike.jpg', img_new)
+cv2.imwrite('EditedImages/mostly_low_pass_bike.jpg', img_new)
