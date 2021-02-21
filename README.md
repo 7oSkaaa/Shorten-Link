@@ -71,3 +71,10 @@ The method is useful in images with backgrounds and foregrounds that are both br
 Unsharp masking, despite what the name may suggest, is a processing technique used to sharpen images, that is to make to make edges and interfaces in your image look crisper which is often available in digital image processing software. Its name derives from the fact that the technique uses a blurred, or "unsharp", negative image to create a mask of the original image.
 
 [Implementation on unsharp masking](https://github.com/MeitanteiAshour/IPApps/blob/master/unsharp_masking.py)
+
+## Image fusion 
+
+The image fusion process is defined as gathering all the important information from multiple images, and their inclusion into fewer images, usually a single one. This single image is more informative and accurate than any single source image, and it consists of all the necessary information.
+
+[Implementation on image fusion](https://github.com/MeitanteiAshour/IPApps/blob/master/fusion.py)
+
