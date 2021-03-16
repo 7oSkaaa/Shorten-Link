@@ -3,6 +3,7 @@ import numpy as np
 
 
 def contrast_stretching(img):
+    """Contrast stretching"""
     # normalize float versions
     norm_img1 = cv2.normalize(img, None, alpha=2, beta=4, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
     norm_img2 = cv2.normalize(img, None, alpha=0, beta=1.2, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
