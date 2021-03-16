@@ -26,3 +26,4 @@ def average_filter(img):
     img_new = img_new.astype(np.uint8)
     cv2.imwrite('EditedImages/mostly_low_pass_bike.jpg', img_new)
     return img_new
+
