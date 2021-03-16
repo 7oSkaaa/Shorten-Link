@@ -2,6 +2,13 @@ from tkinter import *
 from tkinter.filedialog import askopenfilename
 from PIL import Image, ImageTk
 from tkinter import ttk
+from functools import partial
+from average_filter import average_filter
+from contrast_streching import contrast_stretching
+from histogram_equilization import histo_eq
+from median_filtering import median_filter
+from matplotlib import pyplot as plt
+import cv2
 
 
 def do_nothing():
@@ -11,13 +18,28 @@ def do_nothing():
     button.pack()
 
 
+def show_filter(func):
+    global img_label
+    img_label.destroy()
+    img = cv2.imread(path, 0)
+    img = func(img)
+    cv2.imwrite('EditedImages/x.jpg', img)
+    img = Image.open('EditedImages/x.jpg')
+    image = img.resize((200, 200))
+    my_img = ImageTk.PhotoImage(image)
+    img_label = Label(root, image=my_img, width=200, height=200, borderwidth=1, relief="solid")
+    img_label.image = my_img
+    img_label.pack(pady=20)
+
+
 def load_filters():
     label = Label(root, text="Choose any filter to start")
     label.pack(pady=5)
     frame = Frame(root)
     filters = ['Average filter', 'Contrast stertching', 'histogram equalization', 'median filter']
+    functions = [average_filter, contrast_stretching, histo_eq, median_filter]
     for x in range(len(filters)):
-        btn = Button(frame, text=filters[x])
+        btn = Button(frame, text=filters[x], command=partial(show_filter, functions[x]))
         btn.grid(row=0, column=x, padx=2)
     frame.pack()
 
@@ -73,7 +95,7 @@ root = Tk()
 root.title('Image processing project')
 root.geometry('900x600')
 path = ''
-
+img_label = Label()
 ###############
 #             #
 # Design here #
