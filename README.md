@@ -38,3 +38,7 @@ run the script
 ```
 python3 main.py
 ```
+
+Video of the script:
+
+https://user-images.githubusercontent.com/63050133/148388365-c9831f53-0790-4abd-83f8-ef30a9a0e4aa.mp4
