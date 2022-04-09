@@ -25,6 +25,8 @@ def saveToFile(fileName, mode, data):
     with open(f'{fileName}', mode) as file:
         file.write(data + '\n')
 
+def find_element(driver, by, value, timeout=30):
+    return WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((by, value)))
 
 def main():
     # Get URL that we want to shorten
