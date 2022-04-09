@@ -1,4 +1,4 @@
-from os import link
+import os
 from requests import api
 from Services.link_shorten import shortenLink
 from Helpers.colors import bcolors
