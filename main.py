@@ -3,6 +3,14 @@ from requests import api
 from Services.link_shorten import shortenLink
 from Helpers.colors import bcolors
 from Services.API import get_api_key
+from dotenv import load_dotenv
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+load_dotenv()
+
 
 def saveToFile(fileName, mode, data):
     with open(f'{fileName}', mode) as file:
