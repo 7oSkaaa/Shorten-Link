@@ -3,6 +3,9 @@ from requests import api
 from Services.link_shorten import shortenLink
 from Helpers.colors import bcolors
 from Services.API import get_api_key
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def saveToFile(fileName, mode, data):
     with open(f'{fileName}', mode) as file:
@@ -11,7 +14,7 @@ def saveToFile(fileName, mode, data):
 
 def main():
     # Get URL that we want to shorten
-    url = input(f'{bcolors.OKYELLOW}Enter Your URL: ')
+    url = os.getenv('URL')
     
     # Get API Key of the user
     Api_Key = get_api_key()
