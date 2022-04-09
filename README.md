@@ -2,7 +2,7 @@
 
 Make shorten URL with Cuttly API
 
-=======
+---
 
 This Script make shorten URL with custom slashtag
 
