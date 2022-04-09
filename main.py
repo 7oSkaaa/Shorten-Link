@@ -3,30 +3,11 @@ from requests import api
 from Services.link_shorten import shortenLink
 from Helpers.colors import bcolors
 from Services.API import get_api_key
-from dotenv import load_dotenv
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-
-load_dotenv()
-
-def create_driver():
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-notifications")
-    chrome_options.add_argument("--disable-popup-blocking")
-    driver = webdriver.Chrome(options=chrome_options)
-    return driver
 
 def saveToFile(fileName, mode, data):
     with open(f'{fileName}', mode) as file:
         file.write(data + '\n')
 
-def find_element(driver, by, value, timeout=30):
-    return WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((by, value)))
 
 def main():
     # Get URL that we want to shorten
