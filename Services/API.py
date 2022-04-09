@@ -1,10 +1,25 @@
-from os import times
-from Helpers.colors import bcolors
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.alert import Alert
-from getpass import getpass
 import time
+from Helpers.colors import bcolors
+from dotenv import load_dotenv
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+load_dotenv()
+
+def create_driver():
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-notifications")
+    chrome_options.add_argument("--disable-popup-blocking")
+    driver = webdriver.Chrome(options=chrome_options)
+    return driver
+
+def find_element(driver, by, value, timeout=30):
+    return WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((by, value)))
 
 
 def get_api_key():
