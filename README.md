@@ -17,22 +17,22 @@ Sign up in [Cuttly](https://cutt.ly/register)
 open your terminal
 
 ```bash
-#install python3
+# install python3
 sudo apt install python3
 ```
 
 ```bash
-#install python3-pip
+# install python3-pip
 sudo apt install python3-pip
 ```
 
 ```bash
-#install selenium
+# install selenium
 sudo pip install selenium
 ```
 
 ```bash
-#install chormium-chromedriver
+# install chormium-chromedriver
 sudo apt install chromium-chromedriver
 ```
 
