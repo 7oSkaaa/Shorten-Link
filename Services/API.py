@@ -12,7 +12,7 @@ load_dotenv()
 
 def create_driver():
     chrome_options = webdriver.ChromeOptions()
-    #chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-notifications")
@@ -29,6 +29,7 @@ def get_api_key():
     client_email = os.getenv('EMAIL')
     client_password = os.getenv('PASSWORD')
     driver = create_driver()
+    print(f'{bcolors.HEADER}\nLogging in to get your API Key...{bcolors.ENDC}')
     driver.get('https://cutt.ly/login')
     driver.find_element(By.CSS_SELECTOR, '#email').send_keys(client_email)
     driver.find_element(By.CSS_SELECTOR, '#password').send_keys(client_password)
@@ -43,4 +44,5 @@ def get_api_key():
     time.sleep(8)
     api_key = driver.find_element(By.XPATH, '/html/body/div[3]/main/section/div/div/div[3]/ul/li[1]/p/span').text
     driver.close()
+    print(f'\n{bcolors.OKGREEN}API Key successfuly parsing ✅\n{bcolors.ENDC}')
     return api_key.split(' ')[2]

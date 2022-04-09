@@ -2,33 +2,31 @@ import json
 import os
 import sys
 import requests
-import urllib
-import json
 from Helpers.colors import bcolors
 
 def getResponseMessage(status):
     switcher = [
         "Unknown error"
-        f"\n{bcolors.WARNING}the shortened link comes from the domain that shortens the link, i.e. the link has already been shortened\n",
-        f"\n{bcolors.WARNING}the entered link is not a link\n",
-        "Unknown error",
-        f"\n{bcolors.WARNING}Invalid API key\n",
-        f"\n{bcolors.WARNING}the link has not passed the validation. Includes invalid characters\n",
-        f"\n{bcolors.WARNING}The link provided is from a blocked domain\n",
+        f"\n{bcolors.WARNING}the shortened link comes from the domain that shortens the link, i.e. the link has already been shortened\n{bcolors.ENDC}",
+        f"\n{bcolors.WARNING}the entered link is not a link\n{bcolors.ENDC}",
+        "Unknown error{bcolors.ENDC}",
+        f"\n{bcolors.WARNING}Invalid API key\n{bcolors.ENDC}",
+        f"\n{bcolors.WARNING}the link has not passed the validation. Includes invalid characters\n{bcolors.ENDC}",
+        f"\n{bcolors.WARNING}The link provided is from a blocked domain\n{bcolors.ENDC}",
     ]
     return switcher[status]
 
 
-def shortenLink(Link, api_key):
+def shortenLink(api_key):
     
-    print(f"{bcolors.HEADER}\nGenerating short url..\n")
+    print(f"{bcolors.HEADER}Generating short url...\n{bcolors.ENDC}")
 
     while True:
 
-        slashtag = input(f"{bcolors.OKCYAN}Enter url's slashtag: ")
+        slashtag = input(f"{bcolors.OKCYAN}Enter url's slashtag: {bcolors.ENDC}")
 
         key = api_key
-        url = urllib.parse.quote(Link)
+        url = os.getenv('URL')
         name = slashtag
 
         try:
@@ -40,7 +38,7 @@ def shortenLink(Link, api_key):
         json_response = r.json()['url']
         response_status = json_response['status']
         if response_status == 7:
-            print(f"{bcolors.OKGREEN}ACCEPTED!{bcolors.ENDC}")
+            print(f"\n{bcolors.OKGREEN}ACCEPTED! ✅{bcolors.ENDC}")
             break
         elif response_status != 3:
             sys.exit(getResponseMessage(response_status))
@@ -48,6 +46,6 @@ def shortenLink(Link, api_key):
         print(
             f"{bcolors.WARNING}Sorry, this slashtag is used!{bcolors.ENDC}")
 
-    print(f"{bcolors.OKYELLOW}\nShorten url successfully generated with the following link:")
-    print(f"{bcolors.OKRED}{json_response['shortLink']}")
+    print(f"{bcolors.OKYELLOW}\nShorten url successfully generated with the following link:\n{bcolors.ENDC}")
+    print(f"{bcolors.OKRED}{json_response['shortLink']}{bcolors.ENDC}")
     return json_response['shortLink']

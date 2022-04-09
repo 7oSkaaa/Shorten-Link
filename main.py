@@ -13,18 +13,19 @@ def saveToFile(fileName, mode, data):
 
 
 def main():
-    # Get URL that we want to shorten
-    url = os.getenv('URL')
+    
+    if 'URL' not in os.environ or 'EMAIL' not in os.environ or 'PASSWORD' not in os.environ:
+        print(f'{bcolors.OKRED}Missing Environment vairables{bcolors.ENDC}')
     
     # Get API Key of the user
     Api_Key = get_api_key()
     
     # Make Shorten Link
-    shorten_url = shortenLink(url, Api_Key)
+    shorten_url = shortenLink(Api_Key)
     
     # Save the links to the file
     saveToFile('URLs.txt','w', shorten_url)
-    saveToFile('URLs.txt','a', url)
+    saveToFile('URLs.txt','a', os.getenv('URL'))
     
     
 if __name__ == "__main__":
