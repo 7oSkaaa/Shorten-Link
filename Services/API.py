@@ -21,7 +21,7 @@ def create_driver():
     return driver
 
 def find_element(driver, by, value, timeout=30):
-    return WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((by, value)))
+    return WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((by, value)), f'\n{bcolors.FAIL}Timeout while trying to find element...{bcolors.ENDC}\n')
 
 
 def get_api_key():
@@ -31,18 +31,22 @@ def get_api_key():
     driver = create_driver()
     print(f'{bcolors.HEADER}\nLogging in to get your API Key...{bcolors.ENDC}')
     driver.get('https://cutt.ly/login')
-    driver.find_element(By.CSS_SELECTOR, '#email').send_keys(client_email)
-    driver.find_element(By.CSS_SELECTOR, '#password').send_keys(client_password)
-    driver.find_element(By.CSS_SELECTOR, '.g-recaptcha').click()
+    find_element(driver, By.CSS_SELECTOR, '#email').send_keys(client_email)
+    find_element(driver, By.CSS_SELECTOR, '#password').send_keys(client_password)
+    find_element(driver, By.CSS_SELECTOR, '.g-recaptcha').click()
     time.sleep(2)
+    if driver.current_url == 'https://cutt.ly/login':
+        print(f'{bcolors.FAIL}\nlogging in failed\n{bcolors.ENDC}')
+        driver.close()
+        return 'Invalid API Key'
     driver.get('https://cutt.ly/edit')
-    driver.find_element(By.XPATH, '/html/body/div[3]/main/section/div/div/div[3]/ul/li[1]/a').click()
+    find_element(driver, By.XPATH, '/html/body/div[3]/main/section/div/div/div[3]/ul/li[1]/a').click()
     time.sleep(2)
-    driver.find_element(By.XPATH, '/html/body/div[3]/main/section/div/div/div[3]/ul/div[1]/div/div/form/input[2]').click()
+    find_element(driver, By.XPATH, '/html/body/div[3]/main/section/div/div/div[3]/ul/div[1]/div/div/form/input[2]').click()
     time.sleep(2)
     Alert(driver).accept()
     time.sleep(8)
-    api_key = driver.find_element(By.XPATH, '/html/body/div[3]/main/section/div/div/div[3]/ul/li[1]/p/span').text
+    api_key = find_element(driver, By.XPATH, '/html/body/div[3]/main/section/div/div/div[3]/ul/li[1]/p/span').text
     driver.close()
     print(f'\n{bcolors.OKGREEN}API Key successfuly parsing ✅\n{bcolors.ENDC}')
     return api_key.split(' ')[2]

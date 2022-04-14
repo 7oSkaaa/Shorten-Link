@@ -20,6 +20,10 @@ def main():
     # Get API Key of the user
     Api_Key = get_api_key()
     
+    if Api_Key == 'Invalid API Key':
+        print(f'\n{bcolors.FAIL}Faild to get API Key\n{bcolors.ENDC}')
+        return
+    
     # Make Shorten Link
     shorten_url = shortenLink(Api_Key)
     
