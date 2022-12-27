@@ -1,36 +1,36 @@
-import os
-from requests import api
 from Services.link_shorten import shortenLink
-from Helpers.colors import bcolors
-from Services.API import get_api_key
-from dotenv import load_dotenv
+from Helpers.colors import colors
+from Services.link_shorten import change_directory
 
-load_dotenv()
 
-def saveToFile(fileName, mode, data):
-    with open(f'{fileName}', mode) as file:
-        file.write(data + '\n')
+def saveToFile(fileName, mode, data, message):
+    change_directory()
+    with open(f"{fileName}", mode) as file:
+        file.write(message + ": " + data + "\n")
 
 
 def main():
-    
-    if 'URL' not in os.environ or 'EMAIL' not in os.environ or 'PASSWORD' not in os.environ:
-        print(f'{bcolors.OKRED}Missing Environment vairables{bcolors.ENDC}')
-    
-    # Get API Key of the user
-    Api_Key = get_api_key()
-    
-    if Api_Key == 'Invalid API Key':
-        print(f'\n{bcolors.FAIL}Faild to get API Key\n{bcolors.ENDC}')
-        return
-    
+
     # Make Shorten Link
-    shorten_url = shortenLink(Api_Key)
-    
+    shorten_url_response = shortenLink()
+
+    # Get the shorten url
+    shorten_url = shorten_url_response["shortLink"]
+
+    # Get the original url
+    original_url = shorten_url_response["fullLink"]
+
+    # title of the link
+    title = shorten_url_response["title"]
+
     # Save the links to the file
-    saveToFile('URLs.txt','w', shorten_url)
-    saveToFile('URLs.txt','a', os.getenv('URL'))
-    
-    
+    saveToFile("URLs.txt", "w", shorten_url, "Shorten URL")
+    saveToFile("URLs.txt", "a", original_url, "Original URL")
+    saveToFile("URLs.txt", "a", title, "URL Title")
+
+    # check the URLs.txt
+    print(f"\n{colors.brown}Check the URLs.txt file for the shorten url, the original url and URL Title{colors.reset}")
+
+
 if __name__ == "__main__":
     main()

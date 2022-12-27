@@ -1,51 +1,87 @@
-import json
 import os
 import sys
+
 import requests
-from Helpers.colors import bcolors
+from dotenv import load_dotenv
+
+from Helpers.colors import colors
+
+
+def change_directory():
+    # Get the directory of current folder
+    directory = os.path.dirname(os.path.realpath(__file__))
+    os.chdir(directory)
+
+
+def Load_env():
+    # Change the directory and load the environment variables
+    change_directory()
+
+    # Load the environment variables
+    load_dotenv()
+
 
 def getResponseMessage(status):
     switcher = [
         "Unknown error"
-        f"\n{bcolors.WARNING}the shortened link comes from the domain that shortens the link, i.e. the link has already been shortened\n{bcolors.ENDC}",
-        f"\n{bcolors.WARNING}the entered link is not a link\n{bcolors.ENDC}",
-        "Unknown error{bcolors.ENDC}",
-        f"\n{bcolors.WARNING}Invalid API key\n{bcolors.ENDC}",
-        f"\n{bcolors.WARNING}the link has not passed the validation. Includes invalid characters\n{bcolors.ENDC}",
-        f"\n{bcolors.WARNING}The link provided is from a blocked domain\n{bcolors.ENDC}",
+        f"\n{colors.WARNING}the shortened link comes from the domain that shortens the link, i.e. the link has already been shortened\n{colors.ENDC}",
+        f"\n{colors.WARNING}the entered link is not a link\n{colors.ENDC}",
+        "Unknown error{colors.ENDC}",
+        f"\n{colors.WARNING}Invalid API key\n{colors.ENDC}",
+        f"\n{colors.WARNING}the link has not passed the validation. Includes invalid characters\n{colors.ENDC}",
+        f"\n{colors.WARNING}The link provided is from a blocked domain\n{colors.ENDC}",
+        "Uknown error{colors.ENDC}",
+        f"\n{colors.WARNING}You have reached your monthly link limit. You can upgrade your subscription plan to add more links.",
     ]
     return switcher[status]
 
 
-def shortenLink(api_key):
-    
-    print(f"{bcolors.HEADER}Generating short url...\n{bcolors.ENDC}")
+def shortenLink():
+
+    # Change the directory and load the environment variables
+    Load_env()
+
+    # Get API Key of the user
+    if "API_KEY" not in os.environ or os.getenv("API_KEY") == '':
+        print(f"\n{colors.red}Missing Environemnts Variables\n{colors.reset}")
+        exit(0)
+
+    # Get API Key from environment variables
+    Api_Key = os.getenv("API_KEY")
+
+    print(f"{colors.magenta}Generating short url...\n{colors.reset}")
+
+    url = input(f"{colors.cyan}Enter url: {colors.reset}")
 
     while True:
 
-        slashtag = input(f"{bcolors.OKCYAN}Enter url's slashtag: {bcolors.ENDC}")
+        slashtag = input(f"\n{colors.cyan}Enter url's slashtag: {colors.reset}")
 
-        key = api_key
-        url = os.getenv('URL')
+        key = Api_Key
         name = slashtag
 
         try:
             r = requests.get(
-                'http://cutt.ly/api/api.php?key={}&short={}&name={}'.format(key, url, name))
-        except Exception as e:
-            sys.exit(f"\nSomething went wrong with rebrandly api!\n {e}")
+                "http://cutt.ly/api/api.php?key={}&short={}&name={}".format(
+                    key, url, name
+                )
+            )
 
-        json_response = r.json()['url']
-        response_status = json_response['status']
+        except Exception as e:
+            sys.exit(f"\nSomething went wrong with Cuttly api!\n {e}")
+
+        json_response = r.json()["url"]
+        response_status = json_response["status"]
         if response_status == 7:
-            print(f"\n{bcolors.OKGREEN}ACCEPTED! ✅{bcolors.ENDC}")
+            print(f"\n{colors.green}ACCEPTED! ✅{colors.reset}")
             break
         elif response_status != 3:
             sys.exit(getResponseMessage(response_status))
 
-        print(
-            f"{bcolors.WARNING}Sorry, this slashtag is used!{bcolors.ENDC}")
+        print(f"{colors.red}Sorry, this slashtag is used!{colors.reset}")
 
-    print(f"{bcolors.OKYELLOW}\nShorten url successfully generated with the following link:\n{bcolors.ENDC}")
-    print(f"{bcolors.OKRED}{json_response['shortLink']}{bcolors.ENDC}")
-    return json_response['shortLink']
+    print(
+        f"{colors.gold}\nShorten url successfully generated with the following link:\n{colors.reset}"
+    )
+    print(f"{colors.blue}{json_response['shortLink']}{colors.reset}")
+    return json_response
