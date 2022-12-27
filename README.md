@@ -26,16 +26,6 @@ sudo apt install python3
 sudo apt install python3-pip
 ```
 
-```bash
-# install selenium
-sudo pip install selenium
-```
-
-```bash
-# install chormium-chromedriver
-sudo apt install chromium-chromedriver
-```
-
 ## How to Run the script
 
 Get the repo in your device
