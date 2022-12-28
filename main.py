@@ -8,7 +8,7 @@ from contrast_streching import contrast_stretching
 from histogram_equilization import histo_eq
 from median_filtering import median_filter
 import cv2
-
+import json
 
 # Global variables
 root = Tk()
@@ -16,13 +16,17 @@ path = ""
 img_label = Label()
 la = Label()
 img_name = ""
+data = json.load(open("Data.json"))
 
 
-def do_nothing():
+def print_description(info):
     filewin = Toplevel(root)
-    filewin.title("About")
-    button = Button(filewin, text="Do nothing button")
-    button.pack()
+    filewin.title("Description")
+    filewin.geometry("600x400")
+    Title = Label(filewin, text=info["title"], wraplength=300, justify="center", font="Arial 16 bold")
+    Title.pack()
+    Description = Label(filewin, text=info["description"], wraplength=300, font="Arial 12", justify="left")
+    Description.pack(pady=(10, 0))
 
 
 def get_image_name():
@@ -108,7 +112,9 @@ def create_menu():
     menubar.add_cascade(label="File", menu=filemenu)
 
     helpmenu = Menu(menubar, tearoff=0)
-    helpmenu.add_command(label="Description", command=do_nothing)
+    helpmenu.add_command(label="Description", command=partial(print_description, data["description"]))
+    for filter in data["filters"]:
+        helpmenu.add_command(label=filter["title"], command=partial(print_description, filter))
     menubar.add_cascade(label="About", menu=helpmenu)
 
     root.config(menu=menubar)
