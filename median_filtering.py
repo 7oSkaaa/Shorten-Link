@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-def median_filter(img_noisy1):
+def median_filter(img_noisy1, img_name):
     """Median filter"""
     # Obtain the number of rows and columns
     # of the image
@@ -30,6 +30,5 @@ def median_filter(img_noisy1):
             img_new1[i, j] = sor[int(len(sor) / 2)]
 
     img_new1 = img_new1.astype(np.uint8)
-    cv2.imwrite('EditedImages/median_filtering_bird.jpg', img_new1)
+    cv2.imwrite(f'EditedImages/median_filtering_{img_name}.jpg', img_new1)
     return img_new1
-

@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 
-def average_filter(img):
+def average_filter(img, img_name):
     """Average filter"""
     '''Average filter'''
     # Obtain number of rows and columns
@@ -14,8 +14,6 @@ def average_filter(img):
     mask = np.full((3, 3), 2)
     mask = mask / 9
 
-    szn = 3
-    szm = 3
     # Convolve the 3X3 mask over the image
     img_new = np.zeros([m, n])
 
@@ -31,11 +29,10 @@ def average_filter(img):
                     if yy < 0 or yy >= n:
                         continue
                     tmp += img[xx, yy]
-                    #print(ii + 1, jj + 1, mask[ii + 1, jj + 1], sep="  ")
+                    # print(ii + 1, jj + 1, mask[ii + 1, jj + 1], sep="  ")
 
             img_new[i, j] = tmp / 9
-            #print(img_new[i, j], img[i, j], sep="   ")
+            # print(img_new[i, j], img[i, j], sep="   ")
 
-    cv2.imwrite('EditedImages/mostly_low_pass_bike.jpg', img_new)
+    cv2.imwrite(f'EditedImages/mostly_low_pass_{img_name}.jpg', img_new)
     return img_new
-

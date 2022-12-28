@@ -1,10 +1,8 @@
 import cv2
-import numpy as np
 
 
-def histo_eq(img):
+def histo_eq(img, img_name):
     """Histogram equalization"""
     res = cv2.equalizeHist(img)
-    #res = np.hstack((img, equ))  # stacking images side-by-side
-    cv2.imwrite('EditedImages/histo_eq.png', res)
+    cv2.imwrite(f'EditedImages/histo_equalization_{img_name}.png', res)
     return res

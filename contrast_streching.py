@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-def contrast_stretching(img):
+def contrast_stretching(img, img_name):
     """Contrast stretching"""
     # normalize float versions
     norm_img1 = cv2.normalize(img, None, alpha=2, beta=4, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
@@ -14,6 +14,6 @@ def contrast_stretching(img):
     norm_img2 = (255 * norm_img2).astype(np.uint8)
 
     # write normalized output images
-    cv2.imwrite("EditedImages/contrast1.jpg", norm_img1)
-    cv2.imwrite("EditedImages/contrast2.jpg", norm_img2)
+    cv2.imwrite(f"EditedImages/contrast1_{img_name}.jpg", norm_img1)
+    cv2.imwrite(f"EditedImages/contrast2_{img_name}.jpg", norm_img2)
     return norm_img2
